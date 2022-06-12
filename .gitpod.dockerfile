@@ -64,4 +64,4 @@ RUN go get github.com/mailhog/MailHog && \
     mv $HOME/wp-cli.phar /usr/local/bin/wp &&
 
 USER gitpod
-    chown gitpod:gitpod /usr/local/bin/wp
+RUN  chown gitpod:gitpod /usr/local/bin/wp
