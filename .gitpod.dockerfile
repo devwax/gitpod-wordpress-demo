@@ -34,9 +34,9 @@ RUN go install github.com/mailhog/MailHog@latest && \
     sudo rm -rf $GOPATH/src $GOPATH/pkg /home/gitpod/.cache/go /home/gitpod/.cache/go-build
 
 ## Install WebServer
-USER root
+USER gitpod
 ARG DEBIAN_FRONTEND=noninteractive
-RUN add-apt-repository -y ppa:ondrej/php \
+RUN sudo add-apt-repository -y ppa:ondrej/php \
     && install-packages \
         # Install MariaDB
         mariadb-server \
@@ -58,7 +58,7 @@ RUN add-apt-repository -y ppa:ondrej/php \
         php${PHP_VERSION}-zip
 
 ### Setup WebServer
-RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load && \
+RUN sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load && \
     chown -R gitpod:gitpod /etc/apache2 /var/run/apache2 /var/lock/apache2 /var/log/apache2 && \
     echo "include /home/gitpod/.gitpod-conf/conf/apache.conf" > /etc/apache2/apache2.conf && \
     echo ". /home/gitpod/.gitpod-conf/conf/apache.env.sh" > /etc/apache2/envvars && \
@@ -68,13 +68,13 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rew
     cat /home/gitpod/.gitpod-conf/conf/php.ini >> /etc/php/${PHP_VERSION}/apache2/php.ini
 
 ## Install WP-CLI
-RUN wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /home/gitpod/wp-cli.phar && \
+RUN sudo wget -q https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O /home/gitpod/wp-cli.phar && \
     chmod +x /home/gitpod/wp-cli.phar && \
     mv /home/gitpod/wp-cli.phar /usr/local/bin/wp && \
     chown gitpod:gitpod /usr/local/bin/wp
 
 ## Setup .bashrc
-RUN cat /home/gitpod/.gitpod-conf/conf/.bashrc.sh >> /home/gitpod/.bashrc && \
+RUN sudo cat /home/gitpod/.gitpod-conf/conf/.bashrc.sh >> /home/gitpod/.bashrc && \
     echo  >> /home/gitpod/.bashrc && \
     . /home/gitpod/.bashrc
 
