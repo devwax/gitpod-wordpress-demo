@@ -11,7 +11,7 @@ ENV APACHE_DOCROOT="public_html"
 ## Get the settings files
 USER gitpod
 ENV TRIGGER_REBUILD=1
-RUN git clone https://github.com/luizbills/gitpod-wordpress/ --branch next /home/gitpod/.gitpod-conf
+RUN git clone -b next https://github.com/luizbills/gitpod-wordpress/ --branch next /home/gitpod/.gitpod-conf
 
 ## Install nvm and NodeJS (version: LTS)
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
