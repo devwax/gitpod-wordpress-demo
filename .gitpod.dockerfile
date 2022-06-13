@@ -6,7 +6,7 @@ FROM gitpod/workspace-base:latest
 
 ## General Settings ##
 ENV PHP_VERSION="7.4"
-ENV APACHE_DOCROOT="public_html"
+ENV APACHE_DOCROOT="/var/www/html"
 
 ## Get the settings files
 USER gitpod
@@ -36,8 +36,7 @@ RUN go install github.com/mailhog/MailHog@latest && \
 ## Install WebServer
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN mkdir -p /workspace/gitpod-wordpress-demo/public_html && \
-    add-apt-repository -y ppa:ondrej/php \
+RUN add-apt-repository -y ppa:ondrej/php \
     && install-packages \
         # Install MariaDB
         mariadb-server \
