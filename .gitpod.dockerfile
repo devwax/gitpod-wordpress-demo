@@ -36,7 +36,7 @@ RUN go install github.com/mailhog/MailHog@latest && \
 ## Install WebServer
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
-RUN mkdir -p /workspace/gitpod-wordpress-demo && \
+RUN mkdir -p /workspace/gitpod-wordpress-demo/public_html && \
     add-apt-repository -y ppa:ondrej/php \
     && install-packages \
         # Install MariaDB
